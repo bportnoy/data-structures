@@ -1,9 +1,36 @@
 var Queue = function(){
-  // Hey! Rewrite in the new style. Your code will wind up looking very similar,
-  // but try not not reference your old code in writing the new style.
+  var newQueue = {};
+  newQueue.oldest = 0;
+  newQueue.newest = 0;
+  newQueue.queueSize = 0;
+  newQueue.storage = {};
+  extend(newQueue,queueMethods);
+  return newQueue;
 };
 
-var queueMethods = {};
+var queueMethods = {
+  enqueue: function(value){
+    this.storage[this.newest] = value;
+    this.newest++;
+    this.queueSize++;
+  },
+  dequeue: function(){
+    var result = this.storage[this.oldest];
+    this.oldest++;
+    this.queueSize && this.queueSize--;
+    return result;
+  },
+  size: function(){
+    return this.queueSize;
+  }
+};
 
 
-
+var extend = function(obj){
+  Array.prototype.forEach.call(Array.prototype.slice.call(arguments,1),function(source){
+    for(var key in source){
+      obj[key] = source[key];
+    }
+  });
+  return obj;
+};
