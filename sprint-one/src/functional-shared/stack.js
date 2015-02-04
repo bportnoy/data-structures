@@ -1,8 +1,28 @@
 var Stack = function() {
-  // Hey! Rewrite in the new style. Your code will wind up looking very similar,
-  // but try not not reference your old code in writing the new style.
+  var newStack = {};
+  newStack.size = 0;
+  newStack.storage = {};
+  extend(newStack,stackMethods);
+  return newStack;
 };
 
-var stackMethods = {};
+var stackMethods = {
+  pop: function(){
+  	var result = storage[size];
+  	size--;
+  };
+
+  push: function(){
+
+  };
+};
+
+var extend = function(obj){
+	Array.prototype.forEach.call(Array.prototype.slice.call(arguments,1),function(source){
+		for(var key in source){
+		  obj[key] = source[key];
+	});
+	return obj;
+};
 
 
