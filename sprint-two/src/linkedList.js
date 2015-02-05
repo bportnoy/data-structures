@@ -33,11 +33,10 @@ var LinkedList = function(){
     //debugger;
     var result = false;
     var current = list.head; //start at the beginning
-    while(current.next){ // while there's another node in the list
+    while(current){ // while there's another node in the list
       if (current.value === target) result = true; //if the value is present, set result to true
       current = current.next;//get the next node
     }
-    if (current.value === target) result = true;//in case the value is in the last node
     return result;
   };
 
