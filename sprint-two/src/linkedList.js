@@ -32,16 +32,13 @@ var LinkedList = function(){
   list.contains = function(target){
     //debugger;
     var result = false;
-    var current = list.head;
-    while(current.next){
-      if (current.value === target) result = true;
-      current = current.next;
+    var current = list.head; //start at the beginning
+    while(current.next){ // while there's another node in the list
+      if (current.value === target) result = true; //if the value is present, set result to true
+      current = current.next;//get the next node
     }
-    if (current.value === target) result = true;
+    if (current.value === target) result = true;//in case the value is in the last node
     return result;
-    //check to see if value = target
-    //if it is, return true
-    //else return false;
   };
 
   return list;
