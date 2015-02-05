@@ -15,6 +15,7 @@ Queue.prototype.enqueue = function(value){
 
 Queue.prototype.dequeue = function(){
 	var result = this.storage[this.oldest];
+	delete this.storage[this.oldest];
 	this.oldest++;
 	this.queueSize && this.queueSize--;
 	return result;
