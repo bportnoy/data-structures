@@ -16,6 +16,7 @@ var queueMethods = {
   },
   dequeue: function(){
     var result = this.storage[this.oldest];
+    delete this.storage[this.oldest];
     this.oldest++;
     this.queueSize && this.queueSize--;
     return result;
