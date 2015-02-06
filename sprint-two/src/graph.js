@@ -1,5 +1,3 @@
-
-
 var Graph = function(){
   // instantiate a graph with variable for value
   // an array for nodes which are connected
@@ -11,8 +9,6 @@ var GraphNode = function(value) {
   this.connectedTo = [];
 };
 
-//
-
 Graph.prototype.addNode = function(value){
   var newNode = new GraphNode(value);
   this.allNodes.push(newNode);
@@ -23,7 +19,7 @@ Graph.prototype.contains = function(target){
     if (this.allNodes[i].nodeValue === target) return true;
   }
   return false;
-};
+};// there's a way to do this with O(1), requires the relationship to be managed elsewhere
 
 Graph.prototype.removeNode = function(target){
   for (var i = 0; i < this.allNodes.length; i++){
@@ -32,7 +28,7 @@ Graph.prototype.removeNode = function(target){
     }
   }
 };
-
+//test
 Graph.prototype.hasEdge = function(fromNode, toNode){
   var from, to;
   for (var i = 0; i < this.allNodes.length; i++){
@@ -67,7 +63,7 @@ Graph.prototype.removeEdge = function(fromNode, toNode){
 
 Graph.prototype.forEachNode = function(cb){
   for (var i = 0; i < this.allNodes.length; i++) {
-    cb(this.allNodes[i].nodeValue,i,this.allNodes[i]); 
+    cb(this.allNodes[i].nodeValue,i,this.allNodes[i]);
   }
 };
 
