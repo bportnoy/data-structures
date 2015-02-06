@@ -1,6 +1,7 @@
 var HashTable = function(){
   this._limit = 8;
   this._storage = LimitedArray(this._limit);
+  this._size = 0;
 };
 
 HashTable.prototype.insert = function(k, v){
@@ -11,14 +12,18 @@ HashTable.prototype.insert = function(k, v){
   var oldBucket = this._storage.get(i);
   if (oldBucket === undefined){
     //if there isn't, store the tuple
-    var newBucket = [tuple];
-    this._storage.set(i,newBucket);
+    //var newBucket = [tuple];
+    this._storage.set(i,[tuple]);
   } else {
     //if there is, store them all in a bucket
     oldBucket.push(tuple);
     this._storage.set(i,oldBucket);
   }
+  this._size++;
   //check to see if array needs to be resized, if it does, run doubling function
+  if (this._size >= (0.75*this._limit)) {
+    this._grow();
+  }
 };
 
 HashTable.prototype.retrieve = function(k){
@@ -41,7 +46,59 @@ HashTable.prototype.remove = function(k){
       bucket.splice(j,1);
     }
   }
+  this._size--;
+  if (this._size < (0.25*this._limit)) {
+    this._shrink();
+  }
 };
+
+HashTable.prototype._grow = function(){
+  var newLimit = this._limit * 2;
+  var newStorage = new LimitedArray(newLimit);
+  this._storage.each(function(bucket){
+    //iterate over old storage
+    //return reach bucket
+    //for each bucket, iterate and add
+    if (bucket !== undefined){
+      for (var j = 0; j < bucket.length; j++){
+        var i = getIndexBelowMaxForKey(bucket[j][0], newLimit);
+        var tuple = [bucket[j][0], bucket[j][1]];
+        var oldBucket = newStorage.get(i);
+        if (oldBucket === undefined) {
+          newStorage.set(i, [tuple]);
+        } else {
+          oldBucket.push(tuple);
+          newStorage.set(i, oldBucket);
+          }
+      }
+    }
+  });
+  this._storage = newStorage;
+  this._limit = newLimit;
+}
+
+HashTable.prototype._shrink = function(){
+  var newLimit = this._limit * 0.5;
+  var newStorage = new LimitedArray(newLimit);
+  this._storage.each(function(bucket){
+    if (bucket !== undefined){
+      for (var j = 0; j < bucket.length; j++){
+        var i = getIndexBelowMaxForKey(bucket[j][0], newLimit);
+        var tuple = [bucket[j][0], bucket[j][1]];
+        var oldBucket = newStorage.get(i);
+        if (oldBucket === undefined) {
+          newStorage.set(i, [tuple]);
+        } else {
+          oldBucket.push(tuple);
+          newStorage.set(i, oldBucket);
+          }
+      }
+    }
+  });
+  this._storage = newStorage;
+  this._limit = newLimit;
+}
+
 
 
 
