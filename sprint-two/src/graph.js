@@ -35,7 +35,6 @@ Graph.prototype.removeNode = function(target){
 
 Graph.prototype.hasEdge = function(fromNode, toNode){
   var from, to;
-  // if (typeof fromNode !== 'string')
   for (var i = 0; i < this.allNodes.length; i++){
     if (this.allNodes[i].nodeValue === fromNode) from = this.allNodes[i];
     if (this.allNodes[i].nodeValue === toNode) to = this.allNodes[i];
@@ -68,7 +67,7 @@ Graph.prototype.removeEdge = function(fromNode, toNode){
 
 Graph.prototype.forEachNode = function(cb){
   for (var i = 0; i < this.allNodes.length; i++) {
-    cb(this.allNodes[i].nodeValue); // possible technical debt if an operation must be performed on a whole node
+    cb(this.allNodes[i].nodeValue,i,this.allNodes[i]); // possible technical debt if an operation must be performed on a whole node
   }
 };
 
