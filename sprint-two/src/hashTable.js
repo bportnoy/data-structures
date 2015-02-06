@@ -6,26 +6,41 @@ var HashTable = function(){
 HashTable.prototype.insert = function(k, v){
   var i = getIndexBelowMaxForKey(k, this._limit);
   //store item in tuple
+  var tuple = [k,v];
   //check index and see if there's already something there
-  //if there isn't, store the tuple
-  //if there is, store them all in a bucket
+  var oldBucket = this._storage.get(i);
+  if (oldBucket === undefined){
+    //if there isn't, store the tuple
+    var newBucket = [tuple];
+    this._storage.set(i,newBucket);
+  } else {
+    //if there is, store them all in a bucket
+    oldBucket.push(tuple);
+    this._storage.set(i,oldBucket);
+  }
   //check to see if array needs to be resized, if it does, run doubling function
 };
 
 HashTable.prototype.retrieve = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
-  //check what's at the index and see if it's a bucket or just a tuple (if the value is equivalent to what we're looking for)
-  //if it's a tuple, return the values
-  //if it's a bucket, iterate and then return
-  //perhaps it's not found, return undefined
+  //iterate over bucket until key value is found, return
+  var bucket = this._storage.get(i);
+  if (bucket === undefined) return null;
+  for (var j = 0; j < bucket.length; j++){
+    if (bucket[j][0] === k) return bucket[j][1];
+  }
+  return null;
 };
 
 HashTable.prototype.remove = function(k){
   var i = getIndexBelowMaxForKey(k, this._limit);
   //check what's at the index, see if it's a bucket or a tuple
-  //if tuple, delete what's at the index
-  //if bucket, iterate until you find it and then remove
-  //if it needs to be resized, run halving function
+  var bucket = this._storage.get(i);
+  for (var j = 0; j < bucket.length; j++){
+    if (bucket[j][0] === k){
+      bucket.splice(j,1);
+    }
+  }
 };
 
 
