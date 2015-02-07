@@ -62,9 +62,9 @@ describe('binarySearchTree', function() {
     binarySearchTree.insert(5);
     binarySearchTree.insert(9);
     binarySearchTree.insert(13);
-    expect(binarySearchTree.getHeight()).to.equal(3);
+    expect(binarySearchTree.getNodeHeight()).to.equal(3);
     binarySearchTree.insert(12);
-    expect(binarySearchTree.getHeight()).to.equal(4);
+    expect(binarySearchTree.getNodeHeight()).to.equal(4);
   });
 
   it('should still calculate the height of a tree', function(){

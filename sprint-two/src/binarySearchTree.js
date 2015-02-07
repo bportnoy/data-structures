@@ -2,6 +2,7 @@ var BinarySearchTree = function(value){
   this.value = value;
   this.left = null;
   this.right = null;
+  this.numChildren = 0;
 };
 
 BinarySearchTree.prototype.insert = function(value){
@@ -13,6 +14,7 @@ BinarySearchTree.prototype.insert = function(value){
     } else {
       this.left.insert(value);
     }
+    this.numChildren++;
   }
   if (newNode.value > this.value){
     if (this.right === null){
@@ -20,6 +22,11 @@ BinarySearchTree.prototype.insert = function(value){
     } else {
       this.right.insert(value);
     }
+    this.numChildren++;
+  }
+  var minHeight = Math.floor(Math.log2(this.numChildren))+1;
+  if (this.getNodeHeight() > (2 * minHeight)){
+    // this.rebalance();
   }
   //compare new value to current value
   //if less & left = null, create new BST with value @ left. if left != null, call on left node
@@ -29,8 +36,8 @@ BinarySearchTree.prototype.insert = function(value){
 BinarySearchTree.prototype.getNodeHeight = function(){
   var leftHeight = 0, rightHeight = 0;
   if (this.left === null && this.right === null) return 1;
-  if (this.left !== null) leftHeight = this.left.getHeight();
-  if (this.right !== null) rightHeight = this.right.getHeight();
+  if (this.left !== null) leftHeight = this.left.getNodeHeight();
+  if (this.right !== null) rightHeight = this.right.getNodeHeight();
   return leftHeight > rightHeight ? leftHeight+1 : rightHeight+1;
 }
 
