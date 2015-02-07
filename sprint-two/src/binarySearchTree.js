@@ -26,6 +26,14 @@ BinarySearchTree.prototype.insert = function(value){
   //if more & right = null, create new BST with value @ right. if right != null, call on right node
 };
 
+BinarySearchTree.prototype.getNodeHeight = function(){
+  var leftHeight = 0, rightHeight = 0;
+  if (this.left === null && this.right === null) return 1;
+  if (this.left !== null) leftHeight = this.left.getHeight();
+  if (this.right !== null) rightHeight = this.right.getHeight();
+  return leftHeight > rightHeight ? leftHeight+1 : rightHeight+1;
+}
+
 BinarySearchTree.prototype.contains = function(target){
   var result = false;
   if (this.value === target) return true;

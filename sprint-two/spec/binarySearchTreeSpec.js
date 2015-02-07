@@ -54,4 +54,34 @@ describe('binarySearchTree', function() {
     binarySearchTree.breadthFirstLog(func);
     expect(array).to.eql([10,8,15,5,9,13]);
   })
+
+  it('should calculate the height of a tree', function(){
+    binarySearchTree = new BinarySearchTree(10);
+    binarySearchTree.insert(8);
+    binarySearchTree.insert(15);
+    binarySearchTree.insert(5);
+    binarySearchTree.insert(9);
+    binarySearchTree.insert(13);
+    expect(binarySearchTree.getHeight()).to.equal(3);
+    binarySearchTree.insert(12);
+    expect(binarySearchTree.getHeight()).to.equal(4);
+  });
+
+  it('should still calculate the height of a tree', function(){
+    binarySearchTree = new BinarySearchTree(50);
+    binarySearchTree.insert(75);
+    binarySearchTree.insert(99);
+    binarySearchTree.insert(65);
+    binarySearchTree.insert(12);
+    binarySearchTree.insert(55);
+    binarySearchTree.insert(66);
+    expect(binarySearchTree.getNodeHeight()).to.equal(4);
+    binarySearchTree.insert(67);
+    expect(binarySearchTree.getNodeHeight()).to.equal(5);
+
+
+
+
+
+  })
 });
