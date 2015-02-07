@@ -58,20 +58,14 @@ BinarySearchTree.prototype.breadthFirstLog = function(cb,queue){
   queue.enqueue(this.right);
   while(queue.size !== 0){
     var current = queue.dequeue();
-    if (queue.left !== null){
+    if (current.left !== null){
       queue.enqueue(current.left);
     }
-    if (queue.right !== null){
+    if (current.right !== null){
       queue.dequeue(current.right);
     }
     cb(current.value);
   }
-
-
-  // cb(this.value);
-  // queue.dequeue();
-  // queue.enqueue(left);
-  // queue.enqueue(right);
 }
 
 // BinarySearchTree.prototype.enqueueByBreadth = function(childQueue){
