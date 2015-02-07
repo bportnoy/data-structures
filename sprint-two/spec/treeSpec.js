@@ -61,4 +61,23 @@ describe('tree', function() {
     expect(tree.children[0].children[0]).to.equal(undefined);
   })
 
+  it('should property traverse a tree',function(){
+    tree.addChild(5);
+    tree.addChild(6);
+    tree.children[0].addChild(7);
+    tree.children[1].addChild(8);
+    // var callBack = function(value){
+    //   value = value*2;
+    // }
+    // tree.traverse(callBack);
+    // expect(tree.contains(10)).to.equal(true);
+    // expect(tree.contains(12)).to.equal(true);
+    // expect(tree.contains(14)).to.equal(true);
+    // expect(tree.contains(7)).to.equal(false);
+    var array = [];
+    var func = function(value){ array.push(value); };
+    tree.traverse(func);
+    expect(array).to.eql([undefined,5,7,6,8]);
+  })
+
 });

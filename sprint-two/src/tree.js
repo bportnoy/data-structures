@@ -44,7 +44,17 @@ treeMethods.removeFromParent = function(){
   }
   this.parent = null;
   return this;
-}
+};
+
+treeMethods.traverse = function(cb){
+  cb(this.value,this);
+  if (this.children.length !== 0){
+    for (var i = 0; i < this.children.length; i++){
+      this.children[i].traverse(cb);
+    }
+  }
+  return;
+};
 
 var extend = function(obj){
   Array.prototype.forEach.call(Array.prototype.slice.call(arguments,1),function(source){
