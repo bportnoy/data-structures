@@ -52,17 +52,17 @@ BinarySearchTree.prototype.depthFirstLog = function(cb){
 };
 
 BinarySearchTree.prototype.breadthFirstLog = function(cb,queue){
-  var queue = Queue();
+  var queue = new Queue();
   cb(this.value);
   queue.enqueue(this.left);
   queue.enqueue(this.right);
-  while(queue.size !== 0){
+  while(queue.size() !== 0){
     var current = queue.dequeue();
     if (current.left !== null){
       queue.enqueue(current.left);
     }
     if (current.right !== null){
-      queue.dequeue(current.right);
+      queue.enqueue(current.right);
     }
     cb(current.value);
   }

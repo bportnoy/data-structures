@@ -1,31 +1,28 @@
-var Queue = function(){
-  var someInstance = {};
-
-  // Use an object with numeric keys to store values
-  var storage = {};
-  var size = 0;
-  var oldest = 0;
-  var newest = 0;
-
-  // Implement the methods below
-
-  someInstance.enqueue = function(value){
-    storage[newest] = value;
-    size++;
-    newest++;
-  };
-
-  someInstance.dequeue = function(){
-    var result = storage[oldest];
-    delete storage[oldest];
-    oldest++;
-    size && size--;
-    return result;
-  };
-
-  someInstance.size = function(){
-    return size;
-  };
-
-  return someInstance;
+var Queue = function() {
+  // Hey! Rewrite in the new style. Your code will wind up looking very similar,
+  // but try not not reference your old code in writing the new style.
+  this.storage = {};
+  this.queueSize = 0;
+  this.newest = 0;
+  this.oldest = 0;
 };
+
+Queue.prototype.enqueue = function(value){
+	this.storage[this.newest] = value;
+	this.newest++;
+	this.queueSize++;
+};
+
+Queue.prototype.dequeue = function(){
+	var result = this.storage[this.oldest];
+	delete this.storage[this.oldest];
+	this.oldest++;
+	this.queueSize && this.queueSize--;
+	return result;
+};
+
+Queue.prototype.size = function(){
+	return this.queueSize;
+};
+
+
