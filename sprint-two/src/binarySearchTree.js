@@ -1,13 +1,16 @@
-var BinarySearchTree = function(value){
+var BinarySearchTree = function(value,isAVL){
   this.value = value;
   this.left = null;
   this.right = null;
   this.numChildren = 0;
+  this.parent = null;
+  this.AVL = isAVL;
 };
 
 BinarySearchTree.prototype.insert = function(value){
   if (this.value === value) console.log("no duplicates please");
   var newNode = new BinarySearchTree(value);
+  newNode.parent = this;
   if (newNode.value < this.value){//go left
     if (this.left === null){
       this.left = newNode;
@@ -32,6 +35,44 @@ BinarySearchTree.prototype.insert = function(value){
   //if less & left = null, create new BST with value @ left. if left != null, call on left node
   //if more & right = null, create new BST with value @ right. if right != null, call on right node
 };
+
+BinarySearchTree.prototype.rotateRight = function(){
+  var previousParent = this.parent;
+  var root = this;
+  var pivot = this.left;
+  var previousPivotRight = pivot.right;
+  if (previousParent !== null){
+    if (previousParent.left === root){
+      previousParent.left = pivot;
+    }
+    if (previousParent.right === root){
+      previousParent.right = pivot;
+    }
+  }
+  pivot.right = root;
+  root.left = previousPivotRight;
+  root.parent = pivot;
+  return pivot;
+}
+
+BinarySearchTree.prototype.rotateLeft = function(){
+  var previousParent = this.parent;
+  var root = this;
+  var pivot = this.right;
+  var previousPivotLeft = pivot.left;
+  if (previousParent != null){
+    if (previousParent.right === root) {
+      previousParent.right = pivot;
+    }
+    if (previousParent.left === root){
+      previousParent.left = pivot;
+    }
+  }
+  pivot.left = root;
+  root.right = previousPivotLeft;
+  root.parent = pivot;
+  return pivot;
+}
 
 BinarySearchTree.prototype.getNodeHeight = function(){
   var leftHeight = 0, rightHeight = 0;
