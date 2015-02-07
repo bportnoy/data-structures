@@ -42,9 +42,10 @@ describe('binarySearchTree', function() {
   });
 
   it('should execute a callback on every value in a tree using "breadthFirstLog"', function(){
+    binarySearchTree = new BinarySearchTree(10);
     var array = [];
     var func = function(value){array.push(value);};
-    binarySearchTree.insert(10);
+    // binarySearchTree.insert(10);
     binarySearchTree.insert(8);
     binarySearchTree.insert(15);
     binarySearchTree.insert(5);
