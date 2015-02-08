@@ -4,12 +4,12 @@ var BinarySearchTree = function(value,isAVL){
   this.right = null;
   this.numChildren = 0;
   this.parent = null;
-  this.AVL = isAVL;
+  this.AVL = isAVL || false;
 };
 
 BinarySearchTree.prototype.insert = function(value){
   if (this.value === value) console.log("no duplicates please");
-  var newNode = new BinarySearchTree(value);
+  var newNode = new BinarySearchTree(value,this.AVL);
   newNode.parent = this;
   if (newNode.value < this.value){//go left
     if (this.left === null){
@@ -27,13 +27,30 @@ BinarySearchTree.prototype.insert = function(value){
     }
     this.numChildren++;
   }
-  var minHeight = Math.floor(Math.log2(this.numChildren))+1;
-  if (this.getNodeHeight() > (2 * minHeight)){
-    // this.rebalance();
+
+  if(this.AVL){
+    var newTree;
+    if (this.getBalanceFactor() > 1){
+      this.rotateRight();
+    }
+    if (this.getBalanceFactor() < -1){
+      this.rotateLeft();
+    }
   }
+  // var minHeight = Math.floor(Math.log2(this.numChildren))+1;
+  // if (this.getNodeHeight() > (2 * minHeight)){
+    // this.rebalance();
+  // }
   //compare new value to current value
   //if less & left = null, create new BST with value @ left. if left != null, call on left node
   //if more & right = null, create new BST with value @ right. if right != null, call on right node
+};
+
+BinarySearchTree.prototype.getBalanceFactor = function(){
+  var leftHeight = 0, rightHeight = 0;
+  if (this.left !== null) leftHeight = this.left.getNodeHeight();
+  if (this.right !== null) rightHeight = this.right.getNodeHeight();
+  return (leftHeight - rightHeight);
 };
 
 BinarySearchTree.prototype.rotateRight = function(){
